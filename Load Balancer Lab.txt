@@ -18,7 +18,7 @@ Protocol : HTTP -> OK
 
 5. Add Load Balancing Rule
 
-6. Install web IIS server on both VM and create a webpage
+6. Install web IIS server or ngix or apache on both VM and create a webpage
 
 7. Now Copy public IP of LB and open 
 
