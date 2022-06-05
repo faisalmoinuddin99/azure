@@ -1,0 +1,46 @@
+virtual networks: 1. vnet1, central india
+		  subent: vnet1-subnet 10.0.1.0/24
+		2. vnet2, south india
+		subnet: vnet2-subnet 192.168.1.0/24
+
+virtual network gatway:
+
+1. name: vng-vnet1
+2. region: central india
+3. public ip address name: pip1
+
+
+1. name: vng-vnet2
+2. region: south india
+3. public ip address name: pip2
+
+
+virtual machine
+
+1. resource group: rg-vnet
+2. virtual machine name: vm1
+3. username: azurevm1
+4. password: Azure@123456
+
+1. resource group: rg-vnet
+2. virtual machine name: vm2
+3. username: azurevm2
+4. password: Azure@123456
+
+
+virtual network gatway connection:
+
+Add connection for vng-vnet1: 
+1. name: central-south
+2. connection type: VNet-to-VNet
+3. choose Second virtual network gateway: vng-vnet2
+4. shared key(PSK): Test1
+
+Add connection for vng-vnet2: 
+1. name: south-central
+2. connection type: VNet-to-VNet
+3. choose Second virtual network gateway: vng-vnet1
+4. shared key(PSK): Test1
+
+
+
