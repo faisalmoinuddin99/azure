@@ -1,28 +1,62 @@
-Steps for Load Balance 
+CREATE A VIRTUAL MACHINE:
 
-1. Create two virtual Machine : A. webserver1 B. webserver2
+1. Resource Group: rg-web
+2. Machine Name: webserver1
+3. Region: Japan West
+4. Availablity Options: Availability set
+5. Availability set: 
+	Create New
+		Name: loadBalancerSet-> OK
+6. Image: Window server
+7. username: azureserver1
+8. password: Azure@123456
 
-* Availability Set -> Create New -> Load Balance Set
-Public Inbound Port - HTTP, RDP
+1. Resource Group: rg-web
+2. Machine Name: webserver2
+3. Region: Japan West
+4. Availablity Options: Availability set
+5. Availability set: 
+	Create New
+		Name: loadBalancerSet--> OK
+6. Image: Window server
+7. username: azureserver2
+8. password: Azure@123456
 
-2. All services -> Networking -> Load Balancer -> Create Load Balancer
 
-Name: lb1, Type: Public, Sku: Basic, Public IP - lb-ip -> Create
+Create Load Balancer:
 
-3. Lb -> Backend pools -> +Add 
-Name: , Associated to -> Availability set 
-+Add Target -> Target VM, Network IP Config
+Name: lb-webserver
+Type: Public
+SKU: Basic
+Public IP address: lb-ip
+Configure Public IP address: Dynamic
+Resource Group: rg-web
+Location: Central India
 
-4. Health Probe -> +Add
-Protocol : HTTP -> OK
+Settings [Left hand side ]:
 
-5. Add Load Balancing Rule
+1. Frontend IP configuration: +Add
 
-6. Install web IIS server or ngix or apache on both VM and create a webpage
+Name: LoadBalancerFrontEnd
+IP address: lb-ip
+Assignment: Dynamic
 
-7. Now Copy public IP of LB and open 
+2. Backend pools: +Add
 
-IDLE TIMEOUT - 4 min
+Name: backend
+Associated to: Availability set -> select loadbalacneset
 
-* Health Probe Originates from the IP address 168.63.129.16 Do not give this IP in 
-VNet
++Add a target network IP configuration: Target virtual machine: webserver1
+
++Add a target network IP configuration: Target virtual machine: webserver2
+
+3. Health Probe: +Add
+
+Name: health
+Protocol: HTTP -> OK
+
+4. Load Balancing Rule: +Add
+
+Name: lb-rule
+Idle timeout: 4 -> OK
+port: 80
