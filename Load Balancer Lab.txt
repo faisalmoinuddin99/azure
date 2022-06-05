@@ -1,0 +1,28 @@
+Steps for Load Balance 
+
+1. Create two virtual Machine : A. webserver1 B. webserver2
+
+* Availability Set -> Create New -> Load Balance Set
+Public Inbound Port - HTTP, RDP
+
+2. All services -> Networking -> Load Balancer -> Create Load Balancer
+
+Name: lb1, Type: Public, Sku: Basic, Public IP - lb-ip -> Create
+
+3. Lb -> Backend pools -> +Add 
+Name: , Associated to -> Availability set 
++Add Target -> Target VM, Network IP Config
+
+4. Health Probe -> +Add
+Protocol : HTTP -> OK
+
+5. Add Load Balancing Rule
+
+6. Install web IIS server on both VM and create a webpage
+
+7. Now Copy public IP of LB and open 
+
+IDLE TIMEOUT - 4 min
+
+* Health Probe Originates from the IP address 168.63.129.16 Do not give this IP in 
+VNet
